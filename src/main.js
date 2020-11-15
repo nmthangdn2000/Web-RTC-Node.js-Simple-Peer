@@ -175,5 +175,6 @@ function onClickVideoCam(){
         button_videocam.style.color = 'black'
         button_videocam.style.borderColor = 'darkgray'
     }
+    
 }
 

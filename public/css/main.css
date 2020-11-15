@@ -89,9 +89,9 @@ body{
 }
 #button-mic{
     transform: translate(-125%, -50%);
-    background: red;
+    /* background: red;
     color: white;
-    border-color: white;
+    border-color: white; */
 }
 #button-call{
     transform: translate(0%, -50%);
