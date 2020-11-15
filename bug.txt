@@ -1,0 +1,6 @@
+Using socket : phải có cái này
+    io.attach(http);
+
+
+sự kiện onClick trong javascript thì phải khai báo toàn cục sử dụng ' window. tên hàm onclick = function (){} '
+        

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container" id="container">
+      <div class="videos" id="video-grid">
+  
+      </div>
+    </div>
+    <!--  -->
+    <div class="menu-top-right" id="menu-top-right">
+      <div class="users-online" onclick="onpenFramesChat(1)">
+        <span class="number-menu-top-right" id="number-user">6</span>
+        <span class="icon-user-chat"><ion-icon name="people"></ion-icon></span>
+      </div>
+      <div class="chat-button" onclick="onpenFramesChat(2)">
+        <span class="number-menu-top-right" id="number-chat">12</span>
+        <span class="icon-user-chat"><ion-icon name="chatbox-ellipses" ></ion-icon></span>
+      </div>
+      <div class="time-now" id="time-now">
+        
+      </div>
+    </div>
+    <!-- khung chat -->
+    <div class="chat" id="frame-users-chat">
+      <div class="title-frame-users-chat">
+        <h3>Chi tiết hội thảo</h3>
+        <ion-icon name="close-outline" id="button-close" onclick="closeFrameUsersChat()"></ion-icon>
+      </div>
+    </div>
+    <!-- Bottom hiển thị các button call mic video v.v -->
+    <div class="bottom" id="div-bottom">
+      <div class="share-room">
+        <span><label>Chi tiết</label> <ion-icon name="chevron-up-outline" ></ion-icon></span>
+      </div>
+      <div class="event-video">
+        <span id="button-mic"><ion-icon name="mic-outline" id="icon-mic"></ion-icon></span>
+        <span id="button-call"><ion-icon name="call" id="icon-call"></ion-icon></span>
+        <span id="button-videocam"><ion-icon name="videocam-outline" id="icon-videocam"></ion-icon></span>
+      </div>
+      <div class="action-more">
+        <span id="button-presentnow"><ion-icon name="albums-outline"></ion-icon></span>
+        <span id="button-ellipsis"><ion-icon name="ellipsis-vertical-outline"></ion-icon></span>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/bundle.js"></script>
+    <script>
+      
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+body{
+    font-family: "Lato", sans-serif;
+    margin: 0;
+}
+.container{
+    display: block;
+    height: 100vh;
+    background-color: yellow;
+    padding: 10px;   
+    transition: 0.5s;
+}
+.videos{
+    display: flex;
+    width: 100%;
+    height: 95%;
+    background-color: black;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.chat{
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: white;
+    border-left: solid 1px black;
+    width: 0;
+    height: 100%;
+    padding-top: 5px;
+    overflow-x: hidden;
+    z-index: 1;
+    transition: .5s;
+}
+/* menu bottom */
+.bottom{
+    height: 15vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    transition: 0.5s;
+}
+.bottom .share-room{
+    position: relative;
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+.bottom .event-video{
+    position: relative;
+    float: left;
+    width: 60%;
+    height: 100%;
+}
+.bottom .action-more{
+    position: relative;
+    float: right;
+    width: 20%;
+    height: 100%;
+}
+.bottom .share-room span{
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: #202124;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 25px 1px 25px 1px;
+    border-radius: 50%;
+}
+.bottom .event-video span{
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 5px;
+    font-size: 30px;
+    padding: 15px 18px 15px 18px;
+    border-radius: 50%;
+    border:0.1rem solid darkgray;
+}
+#button-mic{
+    transform: translate(-125%, -50%);
+    background: red;
+    color: white;
+    border-color: white;
+}
+#button-call{
+    transform: translate(0%, -50%);
+    color: red;
+}
+#button-videocam{
+    transform: translate(125%, -50%);
+}
+.bottom .action-more span{
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: #202124;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 15px 18px 15px 18px;
+    border-radius: 50%;
+}
+#button-presentnow{
+    transform: translate(-100%, -50%);
+}
+#button-ellipsis{
+    transform: translate(50%, -50%);
+}
+.bottom .event-video span:hover, .bottom .share-room span:hover, .bottom .action-more span:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* menu bottom */
+/*  */
+.box{
+    flex: 1 0 41%;
+    box-sizing: border-box;
+   
+    text-align: center;
+    position: relative;
+}
+video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 1s;
+    border-radius: 5;
+}
+/*  */
+@media (min-width: 500px) and (max-width:  1023px){
+    .box{
+        flex: 1 0 51%;
+    }
+    .bottom .share-room span label{
+        display: none;
+    }
+    .bottom .share-room{
+        width: 5%;
+    }
+    .bottom .event-video{
+        width: 65%;
+    }
+    .bottom .action-more{
+        width: 30%;
+    }
+    #button-presentnow{
+        transform: translate(-65%, -50%);
+    }
+    #button-ellipsis{
+        transform: translate(15%, -50%);
+    }
+}
+@media (min-width: 1024px) and (max-width:  1239px){
+    .box{
+        flex: 1 0 41%;
+    }
+    .bottom .share-room span label{
+        display: none;
+    }
+    .bottom .share-room{
+        width: 5%;
+    }
+    .bottom .event-video{
+        width: 65%;
+    }
+    .bottom .action-more{
+        width: 30%;
+    }
+    #button-presentnow{
+        transform: translate(-65%, -50%);
+    }
+    #button-ellipsis{
+        transform: translate(15%, -50%);
+    }
+}
+.button-video{
+    width: 100px;
+    height: 100px;
+}
+.button-pins{
+    position: absolute;
+    background-color: blue;
+    top: 50%;
+    left: 50%;
+    display: none;
+    transform: translate(-125%, -50%);
+}
+.button-showlayout{
+    position: absolute;
+    background-color: yellow;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(25%,-50%);
+}
+video:hover{
+    opacity: 50%;
+    transition: 0.5s;
+    display: inline;
+}
+.menu-top-right{
+    position: fixed;
+    width: 350px;
+    height: 48px;
+    background: white;
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.6s;
+}
+.menu-top-right .users-online{
+    box-sizing: border-box;
+    padding-top: 10px;
+    text-align:  center;
+    float: left;
+    width: 30%;
+    height: 100%;
+    border-bottom-left-radius: 10px;
+}
+.menu-top-right .chat-button{
+    box-sizing: border-box;
+    padding-top: 10px;
+    text-align: center;
+    float: left;
+    width: 30%;
+    height: 100%;
+    border-right: solid 1px dimgray;
+    border-left: solid 1px dimgray;
+}
+.time-now{
+    padding-top: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 28px;
+    float: right;
+    width: 40%;
+    height: 100%;
+}
+.menu-top-right .number-menu-top-right, .menu-top-right .icon-user-chat{
+    font-size: 24px;
+    margin: 0 5px 0 0;
+}
+.users-online:hover, .chat-button:hover{
+    cursor: pointer;
+    background: #f0f0f0;
+    transition: 0.3s;
+    display: inline;
+}
+.chat .title-frame-users-chat{
+    padding: 10px 2px 10px 20px;
+}
+.chat .title-frame-users-chat h3{
+    margin: 0;
+}
+.chat .title-frame-users-chat #button-close{
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    transition: 0.3s;
+}
+.chat .title-frame-users-chat #button-close:hover{
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}

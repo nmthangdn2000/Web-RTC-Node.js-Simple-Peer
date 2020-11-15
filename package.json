@@ -1,0 +1,26 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm i",
+    "start": "node server.js",
+    "devStart": "nodemon server.js",
+    "webpack": "webpack --config ./build/webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "buffer": "^5.7.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "simple-peer": "^9.8.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0"
+  }
+}
