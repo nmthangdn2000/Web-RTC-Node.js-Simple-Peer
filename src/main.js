@@ -82,8 +82,8 @@ function getStream(stream, socket_id){
     mdiv.append(button1)
     mdiv.append(button2)
     videoGrid.append(mdiv)
-    myVideo.addEventListener('mouseover', mouseHoverVideo(socket_id))
-    myVideo.addEventListener('mouseout', mouseHoverOutVideo(socket_id))
+    // myVideo.addEventListener('mouseover', mouseHoverVideo(socket_id))
+    // myVideo.addEventListener('mouseout', mouseHoverOutVideo(socket_id))
     changeCss(numberUserConnection)
 
 }
