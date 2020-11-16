@@ -1,6 +1,7 @@
 body{
     font-family: "Lato", sans-serif;
     margin: 0;
+    color: #5f6368;
 }
 .container{
     display: block;
@@ -30,6 +31,7 @@ body{
     overflow-x: hidden;
     z-index: 1;
     transition: .5s;
+    width: 300px;
 }
 /* menu bottom */
 .bottom{
@@ -283,4 +285,49 @@ video:hover{
     cursor: pointer;
     border-radius: 50%;
     background-color: #f0f0f0;
+}
+.tabs .tabContainer{
+    text-align: center;
+    padding: 1px;
+    
+}
+.tabs .tabContainer div span{
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: .25px;
+    text-transform: none;
+}
+.tabs .tabContainer div span .iconTab{
+    font-size: 22px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tabs .tabContainer div{
+    padding: 20px 10px;
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    border-bottom: 1px solid #dadce0;
+}
+.tabs .tabContainer div:hover{
+    background: rgba(0,121,107,0.039);
+    cursor: pointer;
+}
+.tabs .tabPanel{
+    height: 81vh;
+    width: 100%;
+    padding-top: 70px;
+    display: none;
+}
+.tabs .tabPanel .frame-chat{
+    position: relative;
+    background: red;
+    height: 100%;
+    width: 100%;
+}
+.tabs .tabPanel .frame-chat .bottom-editText{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 10px;
 }
