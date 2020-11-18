@@ -1,0 +1,60 @@
+.emotion{
+    width: 320px;
+    height: 327px;
+    box-sizing: border-box;
+    position: relative;
+    border: 0.1px solid #DCD9D4;
+}
+.tabEmotion{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 33px;
+    width: 100%;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.tabEmotion div {
+    margin: auto 10px;
+}
+.tabEmotion div:hover {
+    cursor: pointer;
+    transition: 0.3s;
+}
+.emotion .tabEmotionPanel{
+    overflow: auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 290px;
+    box-sizing: border-box;
+}
+.emotion .tabEmotionPanel span{
+    flex-grow: 1;
+    flex-basis: 0;
+    flex: 0 0 16.6%;
+    font-family: initial;
+    font-size: 30px;
+}
+.emotion .tabEmotionPanel span:hover {
+    cursor: pointer;
+    transition: 0.3s;
+}
+::-webkit-scrollbar{
+    width: 5px;
+    border: 0.1px solid  #DCD9D4;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb{
+    background: linear-gradient(transparent, #9ad3bc);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: linear-gradient(transparent, #00c6ff);
+}
