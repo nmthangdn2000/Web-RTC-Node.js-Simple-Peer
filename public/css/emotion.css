@@ -1,9 +1,36 @@
+.button-emotion-chat{
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    font-size: 30px;   
+}
+.icon-emotion{
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+.button-emotion-chat:hover{
+    cursor: pointer;
+}
+.floating-emoiton-chat{
+    display: none;
+    position: absolute;
+    right: 2%;
+    bottom: 10%;
+}
+.floating-emoiton-chat-block{
+    display: block;
+}
 .emotion{
-    width: 320px;
-    height: 327px;
+    width: 290px;
+    height: 307px;
     box-sizing: border-box;
     position: relative;
-    border: 0.1px solid #DCD9D4;
+    border: 0.5px solid #DCD9D4;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .tabEmotion{
     position: absolute;
@@ -11,10 +38,10 @@
     left: 0;
     height: 33px;
     width: 100%;
-    background-color: yellow;
     display: flex;
     justify-content: center;
     flex-direction: row;
+    border-top: 0.5px solid #DCD9D4;
 }
 .tabEmotion div {
     margin: auto 10px;
@@ -32,7 +59,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 290px;
+    height: 270px;
     box-sizing: border-box;
 }
 .emotion .tabEmotionPanel span{
@@ -48,8 +75,6 @@
 }
 ::-webkit-scrollbar{
     width: 5px;
-    border: 0.1px solid  #DCD9D4;
-    border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb{
     background: linear-gradient(transparent, #9ad3bc);

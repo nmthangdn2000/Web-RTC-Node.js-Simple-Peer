@@ -176,6 +176,17 @@ function onClickVideoCam(){
     }
     
 }
+const input_chat = document.getElementById('editTex-chat')
+document.querySelectorAll(".tabEmotionPanel span").forEach(el=>{
+    el.onclick = ()=>{
+        let emoji = el.innerHTML.trim()
+        let mess = input_chat.value
+        input_chat.value = mess + emoji
+        //editTex-chat get value ra rồi nối vào. oki :v
+    }
+})
 // require 
 const tabs = require('./js/tabs')
+const click_outside = require('./js/click_outside')
+
 

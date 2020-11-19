@@ -321,16 +321,15 @@ video:hover{
 }
 .tabs .tabPanel .frame-chat{
     position: relative;
-    background: red;
     height: 100%;
     width: 100%;
 }
 .tabs .tabPanel .frame-chat .bottom-editText{
     position: absolute;
     bottom: 0;
-    left: 3%;
+    left: 2%;
     margin: 10px auto;
-    width: 85%;
+    width: 73%;
 }
 .tabs .tabPanel .frame-chat .bottom-editText #editTex-chat{
     padding: 10px;
