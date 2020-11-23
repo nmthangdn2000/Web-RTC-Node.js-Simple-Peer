@@ -31,7 +31,7 @@ body{
     overflow-x: hidden;
     z-index: 1;
     transition: .5s;
-    width: 300px;
+    
 }
 /* menu bottom */
 .bottom{
