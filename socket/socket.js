@@ -6,6 +6,7 @@ io.on('connection', (socket) => {
     socket.on('NewUser', () => {
         peer[socket.id] = socket
         console.log("đã kết nối " + socket.id)
+        socket.emit('getsocketid', socket.id)
         socket.broadcast.emit('initReceive', socket.id)
         io.emit('numberUser', Object.keys(peer).length)
     })
@@ -28,6 +29,11 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('đã ngắt kết nối');
         delete peer[socket.id]
+    })
+
+    socket.on('turn off mic', (id) => {
+        console.log("asdklsaj "+id);
+        socket.broadcast.emit('turn off mic', id)
     })
 })
 

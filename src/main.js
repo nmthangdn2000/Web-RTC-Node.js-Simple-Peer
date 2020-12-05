@@ -4,6 +4,7 @@ const videoGrid = document.getElementById('video-grid')
 let peers = {}
 let localStream = null
 let numberUserConnection = 0
+let socketidUser = ''
 
 navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 .then(stream => {
@@ -12,6 +13,11 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
     getStream(localStream, 1)
 
     socket.emit('NewUser')
+    socket.on('getsocketid', (id) => {
+        socketidUser = id
+        peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
+        console.log("bbbbbbbbbbbbbbbb ", peers[id]);
+    })
     //
     socket.on('initReceive', socket_id => {
         console.log('INIT RECEIVE ' + socket_id)
@@ -30,6 +36,11 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
     })
 
     socket.on('numberUser', (number) => numberUserConnection = number)
+
+    socket.on('turn off mic', id => {
+        // const elementVideo = document.querySelector('#'+id+' .video')
+        // elementVideo.muted = true;
+    })
 })
 .catch(err => console.log(err))
 
@@ -49,7 +60,19 @@ function addPeer(socket_id, am_initiator){
     })
 
     peers[socket_id].on('connect', () => {
-        
+        document.getElementById('number-user').innerHTML = numberUserConnection
+
+    })
+
+    peers[socket_id].on('track', (track, stream) => {
+        // if(track.length > 0 && stream != null){
+            // track[0].enabled = !track[0].enabled
+            console.log("cái lozz", track);
+        // }
+    })
+
+    peers[socket_id].on('error', (err) => {
+        console.log("",err);
     })
 }
 
@@ -134,6 +157,8 @@ window.closeFrameUsersChat = () => {
     document.getElementById('menu-top-right').style.height = "48px"
 }
 
+
+// event mic video
 const button_mic= document.getElementById('button-mic')
 const button_call= document.getElementById('button-call')
 const button_videocam= document.getElementById('button-videocam')
@@ -144,11 +169,13 @@ button_videocam.addEventListener('click', onClickVideoCam)
 
 function onClickMic(){
     const icon_mic = document.getElementById('icon-mic')
+    turnOffMic()
     if(icon_mic.name === 'mic-outline'){
         icon_mic.name = 'mic-off-outline'
         button_mic.style.background = 'red'
         button_mic.style.color = 'white'
         button_mic.style.borderColor = 'white'
+        
     }
     else {
         icon_mic.name = 'mic-outline'  
@@ -162,6 +189,7 @@ function onClickCall(){
 }
 function onClickVideoCam(){
     const icon_videocam = document.getElementById('icon-videocam')
+    turnOffVideo()
     if(icon_videocam.name === 'videocam-outline'){
         icon_videocam.name = 'videocam-off-outline'
         button_videocam.style.background = 'red'
@@ -177,11 +205,25 @@ function onClickVideoCam(){
     
 }
 
+function turnOffMic(){
+    
+    const track = localStream.getAudioTracks()[0]
+    track.enabled = !track.enabled;
+    socket.emit('turn off mic', socketidUser)
+}
+function turnOffVideo(){
+    
+    const track = localStream.getVideoTracks()[0]
+    track.enabled = !track.enabled;
+}
+// event mic video
+
+
 // require 
 const tabs = require('./js/tabs')
 const click_outside = require('./js/click_outside')
 const emoji = require('./js/emoji')
-
+const chatmess = require('./js/chat')
 
 
 const input_chat = document.getElementById('editTex-chat')
@@ -193,3 +235,5 @@ document.querySelectorAll(".tabEmotionPanel span").forEach(el=>{
         //editTex-chat get value ra rồi nối vào. oki :v
     }
 })
+
+
