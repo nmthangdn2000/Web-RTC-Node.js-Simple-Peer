@@ -1,10 +1,12 @@
 const io = require('socket.io')()
 let peer = {}
+let people = {}
 
 io.on('connection', (socket) => {
     
     socket.on('NewUser', () => {
         peer[socket.id] = socket
+        console.log(peer);
         console.log("đã kết nối " + socket.id)
         socket.emit('getsocketid', socket.id)
         socket.broadcast.emit('initReceive', socket.id)
@@ -34,6 +36,10 @@ io.on('connection', (socket) => {
     socket.on('turn off mic', (id) => {
         console.log("asdklsaj "+id);
         socket.broadcast.emit('turn off mic', id)
+    })
+
+    socket.on('turn off video', id => {
+        socket.broadcast.emit('turn off video', id)
     })
 })
 

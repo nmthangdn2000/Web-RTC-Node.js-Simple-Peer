@@ -37,12 +37,18 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 
     socket.on('numberUser', (number) => numberUserConnection = number)
 
-    socket.on('turn off mic', id => {
-        // const elementVideo = document.querySelector('#'+id+' .video')
-        // elementVideo.muted = true;
-    })
 })
 .catch(err => console.log(err))
+// socket
+socket.on('turn off mic', id => {
+    // const elementVideo = document.querySelector('#'+id+' .video')
+    // elementVideo.muted = true;
+})
+socket.on('turn off video', id => {
+
+})
+//socket
+
 
 function addPeer(socket_id, am_initiator){
     peers[socket_id] = new Peer({ initiator: am_initiator, trickle: false, stream: localStream})
@@ -215,6 +221,7 @@ function turnOffVideo(){
     
     const track = localStream.getVideoTracks()[0]
     track.enabled = !track.enabled;
+    socket.emit('turn off video', socketidUser);
 }
 // event mic video
 

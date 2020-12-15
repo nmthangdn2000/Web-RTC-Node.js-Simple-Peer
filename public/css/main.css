@@ -133,7 +133,6 @@ body{
 .box{
     flex: 1 0 41%;
     box-sizing: border-box;
-   
     text-align: center;
     position: relative;
 }
