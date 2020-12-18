@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/lounge.css">
+</head>
+<body>
+    <div class="container">
+		<header id="header" class="">
+			<h1>Ứng dụng hội thảo từ xa</h3>	
+		</header>
+		<div class="gird-layout">
+			<div class="element">
+				<div class="layout-left">
+					<video id="video"></video>
+				</div>
+			</div>
+			<div class="element">
+				<div class="layout-right">
+					<div class="item-layout-right not-account">
+						<form action="/room_id" method="POST" accept-charset="utf-8">
+							<label for="fname" class="label-name">Nhập tên của bạn</label><br>
+   							<input type="text" class="input_text" id="fname" name="name" placeholder="Tên của bạn ..."><br>
+   							<label for="froom" class="label-name">Nhập id phòng họp</label><br>
+   							<input type="text" class="input_text" id="froom" name="roomid" placeholder="ID phòng họp ..."><br>
+   							<input type="submit" name="submit" value="Tham gia">
+						</form>
+					</div>
+					<div class="item-layout-right join-room">
+						<a href="">Đăng nhập</a> <span>hoặc</span> <a href="" title="">đăng ký</a> để có thể tạo phòng họp
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/lounge.js"></script>
+	<script>
+		<% if(typeof roomID !== "undefined"){ %>
+			const ROOM_ID = "<%= roomID %>"
+			document.getElementById('froom').value = ROOM_ID
+		<% } %>
+	</script>
+</body>
+</html>

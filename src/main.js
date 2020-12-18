@@ -6,17 +6,17 @@ let localStream = null
 let numberUserConnection = 0
 let socketidUser = ''
 
-navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+navigator.mediaDevices.getUserMedia({ video:true, audio: true })
 .then(stream => {
     getHours()
     localStream = stream;
     getStream(localStream, 1)
-
+    
+    socket.emit('join-room',ROOM_ID, USER_NAME)
     socket.emit('NewUser')
     socket.on('getsocketid', (id) => {
         socketidUser = id
-        peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
-        console.log("bbbbbbbbbbbbbbbb ", peers[id]);
+        // peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
     })
     //
     socket.on('initReceive', socket_id => {
@@ -24,6 +24,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         addPeer(socket_id, false)
 
         socket.emit('initSend', socket_id)
+        console.log("aaaaaaaaa", peers);
     })
     
     socket.on('initSend', socket_id => {
@@ -35,8 +36,24 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         peers[data.socket_id].signal(data.signal)
     })
 
-    socket.on('numberUser', (number) => numberUserConnection = number)
+    socket.on('numberUser', (number) =>{
+        numberUserConnection = number
+        changeCss(numberUserConnection)
+        document.getElementById('number-user').innerHTML = number
+    })
 
+    socket.on('removePeer', socket_id => {
+        console.log('removing peer ' + socket_id)
+        removePeer(socket_id)
+    })
+
+    socket.on('disconnect', () => {
+        console.log('GOT DISCONNECTED')
+        for (let socket_id in peers) {
+            removePeer(socket_id)
+        }
+    })
+    
 })
 .catch(err => console.log(err))
 // socket
@@ -48,7 +65,26 @@ socket.on('turn off video', id => {
 
 })
 //socket
+function removePeer(socket_id) {
 
+    let videoEl = document.querySelector("#"+socket_id+" .video")
+    let divVideoEl = document.querySelector("#"+socket_id)
+    console.log(videoEl);
+    if (videoEl) {
+
+        const tracks = videoEl.srcObject.getTracks();
+
+        tracks.forEach(function (track) {
+            track.stop()
+        })
+
+        videoEl.srcObject = null
+        divVideoEl.remove()
+    }
+    if (peers[socket_id]) peers[socket_id].destroy()
+    delete peers[socket_id]
+}
+//
 
 function addPeer(socket_id, am_initiator){
     peers[socket_id] = new Peer({ initiator: am_initiator, trickle: false, stream: localStream})
@@ -67,13 +103,12 @@ function addPeer(socket_id, am_initiator){
 
     peers[socket_id].on('connect', () => {
         document.getElementById('number-user').innerHTML = numberUserConnection
-
     })
 
     peers[socket_id].on('track', (track, stream) => {
         // if(track.length > 0 && stream != null){
             // track[0].enabled = !track[0].enabled
-            console.log("cái lozz", track);
+          
         // }
     })
 
@@ -113,8 +148,6 @@ function getStream(stream, socket_id){
     videoGrid.append(mdiv)
     // myVideo.addEventListener('mouseover', mouseHoverVideo(socket_id))
     // myVideo.addEventListener('mouseout', mouseHoverOutVideo(socket_id))
-    changeCss(numberUserConnection)
-
 }
 
 // change css
@@ -127,6 +160,7 @@ function changeCss(number){
         if(number >= 5) {
             classBox[index].style.flex = '1 0 31%'
         }
+        if(number == 1) classBox[index].style.flex = '1 0 41%'
     }
 }
 function myOnClickVideo(id, type){

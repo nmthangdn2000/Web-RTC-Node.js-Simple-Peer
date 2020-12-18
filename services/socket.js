@@ -3,14 +3,18 @@ let peer = {}
 let people = {}
 
 io.on('connection', (socket) => {
+
     
     socket.on('NewUser', () => {
         peer[socket.id] = socket
-        console.log(peer);
         console.log("đã kết nối " + socket.id)
         socket.emit('getsocketid', socket.id)
         socket.broadcast.emit('initReceive', socket.id)
         io.emit('numberUser', Object.keys(peer).length)
+    })
+
+    socket.on('join-room', (roomID, user) => {
+        console.log("aaaaaaaaaaa",roomID, user);
     })
 
     socket.on('signal', data => {
@@ -28,10 +32,7 @@ io.on('connection', (socket) => {
         peer[init_socket_id].emit('initSend', socket.id)
     })
 
-    socket.on('disconnect', () => {
-        console.log('đã ngắt kết nối');
-        delete peer[socket.id]
-    })
+
 
     socket.on('turn off mic', (id) => {
         console.log("asdklsaj "+id);
@@ -40,6 +41,13 @@ io.on('connection', (socket) => {
 
     socket.on('turn off video', id => {
         socket.broadcast.emit('turn off video', id)
+    })
+    socket.on('disconnect', () => {
+        console.log('ngắt kết nối ' + socket.id)
+        socket.broadcast.emit('removePeer', socket.id)
+        delete peer[socket.id]
+        console.log(Object.keys(peer).length);
+        io.emit('numberUser', Object.keys(peer).length)
     })
 })
 
