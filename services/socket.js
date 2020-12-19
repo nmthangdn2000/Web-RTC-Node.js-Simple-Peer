@@ -5,16 +5,19 @@ let people = {}
 io.on('connection', (socket) => {
 
     
-    socket.on('NewUser', () => {
+    socket.on('NewUser', roomID => {
         peer[socket.id] = socket
         console.log("đã kết nối " + socket.id)
         socket.emit('getsocketid', socket.id)
-        socket.broadcast.emit('initReceive', socket.id)
-        io.emit('numberUser', Object.keys(peer).length)
+        socket.to(roomID).emit('initReceive', socket.id)
+        io.to(roomID).emit('numberUser', io.sockets.adapter.rooms[roomID].length)
     })
 
     socket.on('join-room', (roomID, user) => {
-        console.log("aaaaaaaaaaa",roomID, user);
+        people[socket.id] = user
+        console.log("aaaaaaaaaaa",people[socket.id]);
+        socket.join(roomID)
+        console.log(io.sockets.adapter.rooms[roomID]);
     })
 
     socket.on('signal', data => {

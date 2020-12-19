@@ -13,7 +13,7 @@ navigator.mediaDevices.getUserMedia({ video:true, audio: true })
     getStream(localStream, 1)
     
     socket.emit('join-room',ROOM_ID, USER_NAME)
-    socket.emit('NewUser')
+    socket.emit('NewUser',ROOM_ID)
     socket.on('getsocketid', (id) => {
         socketidUser = id
         // peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
