@@ -14,7 +14,7 @@ body{
     display: flex;
     width: 100%;
     height: 95%;
-    background-color: black;
+    background-color: #111;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
@@ -138,12 +138,14 @@ body{
 }
 video{
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 95%;
     transition: 1s;
-    border-radius: 5;
+    transform: translate(-50%, -50%);
+    border-radius: 10;
+    box-shadow: 0 4px 8px 0 rgba(231, 231, 231, 0.2), 0 6px 20px 0 rgba(252, 251, 251, 0.19);
 }
 /*  */
 @media (min-width: 500px) and (max-width:  1023px){
@@ -193,27 +195,42 @@ video{
     }
 }
 .button-video{
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 .button-pins{
     position: absolute;
-    background-color: blue;
+    background: #111;
+    border-radius: 100%;
+    box-shadow: 0 4px 8px 0 rgba(250, 250, 250, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+    opacity: 0.3;
     top: 50%;
     left: 50%;
     display: none;
     transform: translate(-125%, -50%);
+    transition: 0.3s;
 }
 .button-showlayout{
     position: absolute;
-    background-color: yellow;
+    background: #111;
+    border-radius: 100%;
+    box-shadow: 0 4px 8px 0 rgba(250, 250, 250, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
     display: none;
+    opacity: 0.3;
     top: 50%;
     left: 50%;
     transform: translate(25%,-50%);
+    transition: 0.3s;
+}
+.button-pins-showlayout{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 26px;
+    color: white;
 }
 video:hover{
-    opacity: 50%;
     transition: 0.5s;
     display: inline;
 }

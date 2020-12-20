@@ -10,7 +10,7 @@ navigator.mediaDevices.getUserMedia({ video:true, audio: true })
 .then(stream => {
     getHours()
     localStream = stream;
-    getStream(localStream, 1)
+    getStream(localStream, "mytabvideo")
     
     socket.emit('join-room',ROOM_ID, USER_NAME)
     socket.emit('NewUser',ROOM_ID)
@@ -38,7 +38,6 @@ navigator.mediaDevices.getUserMedia({ video:true, audio: true })
 
     socket.on('numberUser', (number) =>{
         numberUserConnection = number
-        changeCss(numberUserConnection)
         document.getElementById('number-user').innerHTML = number
     })
 
@@ -103,6 +102,7 @@ function addPeer(socket_id, am_initiator){
 
     peers[socket_id].on('connect', () => {
         document.getElementById('number-user').innerHTML = numberUserConnection
+        changeCss(numberUserConnection)
     })
 
     peers[socket_id].on('track', (track, stream) => {
@@ -125,10 +125,12 @@ function getStream(stream, socket_id){
     const button2 = document.createElement('div')
     button1.classList.add('button-video')
     button1.classList.add('button-pins')
-    button1.setAttribute('id', 'button-pins'+socket_id)
+    button1.setAttribute('id', 'button-pins')
+    button1.innerHTML += '<ion-icon name="eyedrop" class="button-pins-showlayout"></ion-icon>'
     button2.classList.add('button-video')
     button2.classList.add('button-showlayout')
-    button2.setAttribute('id', 'button-showlayout'+socket_id)
+    button2.innerHTML += '<ion-icon name="volume-high" class="button-pins-showlayout"></ion-icon>'
+    button2.setAttribute('id', 'button-showlayout')
     // set event click
     button1.onclick = function() {myOnClickVideo(socket_id, "button1")}
     button2.onclick = function() {myOnClickVideo(socket_id, "button2")}
@@ -146,8 +148,8 @@ function getStream(stream, socket_id){
     mdiv.append(button1)
     mdiv.append(button2)
     videoGrid.append(mdiv)
-    // myVideo.addEventListener('mouseover', mouseHoverVideo(socket_id))
-    // myVideo.addEventListener('mouseout', mouseHoverOutVideo(socket_id))
+    myVideo.addEventListener('mouseover', function(){mouseHoverVideo(socket_id)})
+    myVideo.addEventListener('mouseout', function(){mouseHoverOutVideo(socket_id)})
 }
 
 // change css
@@ -156,22 +158,77 @@ function changeCss(number){
     // const elementVideo = document.getElementsByTagName('video')
     // const css = document.getElementsByClassName('video')
     const classBox = document.getElementsByClassName('box')
+    const video = document.querySelectorAll('.box video')
     for (let index = 0; index < number; index++) {
+        video[index].style.height = '80%'
         if(number >= 5) {
             classBox[index].style.flex = '1 0 31%'
         }
-        if(number == 1) classBox[index].style.flex = '1 0 41%'
+        else if(number == 1){
+            classBox[index].style.flex = '1 0 41%'
+            video[index].style.height = '95%'
+        } 
     }
 }
 function myOnClickVideo(id, type){
-    alert(id +" "+ type);
+    const button1 = document.querySelector('#'+id+' #button-pins ion-icon')
+    const button2 = document.querySelector('#'+id+' #button-showlayout ion-icon')
+    if(type == "button1"){
+        if(button1.name == 'eyedrop')
+            button1.name = 'backspace'
+        else
+            button1.name = 'eyedrop'
+    }
+    else if(type == "button2"){
+        if(button2.name == 'volume-high')
+            button2.name = 'volume-mute'
+        else{
+            button2.name = 'volume-high'
+        }
+        if(id == 'mytabvideo')
+            onClickMic() 
+    }
 }
 function mouseHoverVideo(id){
-    const button1 = document.getElementById('button-pins1')
-    button1.style.height = '500px'
+    
+    const button1 = document.querySelector('#'+id+' #button-pins')
+    const button2 = document.querySelector('#'+id+' #button-showlayout')
+    const myVideo = document.querySelector('#'+id+' video')
+    button1.style.display = 'block'
+    button2.style.display = 'block'
+    myVideo.style.opacity = '0.5'
+    button1.addEventListener('mouseover', function(){
+        button1.style.display = 'block'
+        button2.style.display = 'block'
+        button1.style.opacity = '60%'
+        myVideo.style.opacity = '50%'
+    })
+    button1.addEventListener('mouseout', function(){
+        button1.style.display = 'block'
+        button2.style.display = 'block'
+        button1.style.opacity = '20%'
+        myVideo.style.opacity = '50%'
+    })
+    button2.addEventListener('mouseover', function(){
+        button1.style.display = 'block'
+        button2.style.display = 'block'
+        button2.style.opacity = '60%'
+        myVideo.style.opacity = '0.5'
+    })
+    button2.addEventListener('mouseout', function(){
+        button1.style.display = 'block'
+        button2.style.display = 'block'
+        button2.style.opacity = '20%'
+        myVideo.style.opacity = '50%'
+    })
 }
 function mouseHoverOutVideo(id){
-    alert(id );
+    const myVideo = document.querySelector('#'+id+' video')
+    const button1 = document.querySelector('#'+id+' #button-pins')
+    const button2 = document.querySelector('#'+id+' #button-showlayout')
+    button1.style.display = 'none'
+    button2.style.display = 'none'
+    myVideo.style.opacity = '1'
 }
 function getHours(){
     const divTime = document.getElementById('time-now')
@@ -246,13 +303,11 @@ function onClickVideoCam(){
 }
 
 function turnOffMic(){
-    
     const track = localStream.getAudioTracks()[0]
     track.enabled = !track.enabled;
     socket.emit('turn off mic', socketidUser)
 }
 function turnOffVideo(){
-    
     const track = localStream.getVideoTracks()[0]
     track.enabled = !track.enabled;
     socket.emit('turn off video', socketidUser);
