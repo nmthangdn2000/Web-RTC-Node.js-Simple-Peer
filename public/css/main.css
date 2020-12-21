@@ -350,3 +350,28 @@ video:hover{
     padding: 10px;
     width: 100%;
 }
+/* layout-chat */
+.layout-chat-username{
+    color: #04b83a;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19px;
+    padding-right: 8px;
+}
+.layout-chat-username.me-mess{
+    color: #202124;
+}
+.layout-chat-time{
+    color: #5f6368;
+    display: inline-block;
+    font-size: 12px;
+}
+.layout-chat-value{
+    color: #202124;
+    font-size: 13px;
+    line-height: 20px;
+    padding-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+/* layout-chat */

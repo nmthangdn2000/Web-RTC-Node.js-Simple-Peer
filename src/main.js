@@ -1,10 +1,14 @@
 let Peer = require('simple-peer')
+const tabs = require('./js/tabs')
+const click_outside = require('./js/click_outside')
+const emoji = require('./js/emoji')
+const chatmess = require('./js/chat')
 const socket = io()
 const videoGrid = document.getElementById('video-grid')
 let peers = {}
 let localStream = null
 let numberUserConnection = 0
-let socketidUser = ''
+var SOCKETID_USER = ''
 
 navigator.mediaDevices.getUserMedia({ video:true, audio: true })
 .then(stream => {
@@ -15,7 +19,9 @@ navigator.mediaDevices.getUserMedia({ video:true, audio: true })
     socket.emit('join-room',ROOM_ID, USER_NAME)
     socket.emit('NewUser',ROOM_ID)
     socket.on('getsocketid', (id) => {
-        socketidUser = id
+        SOCKETID_USER = id
+        console.log("socketidUser", SOCKETID_USER);
+        chatmess.sendMess(SOCKETID_USER, socket)
         // peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
     })
     //
@@ -305,22 +311,14 @@ function onClickVideoCam(){
 function turnOffMic(){
     const track = localStream.getAudioTracks()[0]
     track.enabled = !track.enabled;
-    socket.emit('turn off mic', socketidUser)
+    socket.emit('turn off mic', SOCKETID_USER)
 }
 function turnOffVideo(){
     const track = localStream.getVideoTracks()[0]
     track.enabled = !track.enabled;
-    socket.emit('turn off video', socketidUser);
+    socket.emit('turn off video', SOCKETID_USER);
 }
 // event mic video
-
-
-// require 
-const tabs = require('./js/tabs')
-const click_outside = require('./js/click_outside')
-const emoji = require('./js/emoji')
-const chatmess = require('./js/chat')
-
 
 const input_chat = document.getElementById('editTex-chat')
 document.querySelectorAll(".tabEmotionPanel span").forEach(el=>{
@@ -331,5 +329,3 @@ document.querySelectorAll(".tabEmotionPanel span").forEach(el=>{
         //editTex-chat get value ra rồi nối vào. oki :v
     }
 })
-
-

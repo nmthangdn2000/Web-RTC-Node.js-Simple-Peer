@@ -3,7 +3,7 @@ let peer = {}
 let people = {}
 
 io.on('connection', (socket) => {
-
+    console.log(socket.id);
     
     socket.on('NewUser', roomID => {
         peer[socket.id] = socket
@@ -19,7 +19,11 @@ io.on('connection', (socket) => {
         socket.join(roomID)
         console.log(io.sockets.adapter.rooms[roomID]);
     })
-
+    // chat
+    socket.on('send-mess', (value, iduser, roomId) => {
+        socket.to(roomId).emit('send-mess', value, people[iduser])
+    })
+    // chat
     socket.on('signal', data => {
         console.log('sending signal from ' + socket.id + ' to ' +data)
         if(!peer[data.socket_id]) return
