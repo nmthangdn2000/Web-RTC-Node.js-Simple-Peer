@@ -10,6 +10,43 @@ let localStream = null
 let numberUserConnection = 0
 var SOCKETID_USER = ''
 let statusFrameChat = false
+const configuration = {
+    "iceServers":[
+        {
+        "url":"stun:ss-turn2.xirsys.com"
+        },
+        {
+        "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
+        "url":"turn:ss-turn2.xirsys.com:80?transport=udp",
+        "credential":"b30fa424-447a-11eb-a6ff-0242ac140004"
+        },
+        {
+        "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
+        "url":"turn:ss-turn2.xirsys.com:3478?transport=udp",
+        "credential":"b30fa424-447a-11eb-a6ff-0242ac140004"
+        },
+        {
+        "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
+        "url":"turn:ss-turn2.xirsys.com:80?transport=tcp",
+        "credential":"b30fa424-447a-11eb-a6ff-0242ac140004"
+        },
+        {
+        "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
+        "url":"turn:ss-turn2.xirsys.com:3478?transport=tcp",
+        "credential":"b30fa424-447a-11eb-a6ff-0242ac140004"
+        },
+        {
+        "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
+        "url":"turns:ss-turn2.xirsys.com:443?transport=tcp",
+        "credential":"b30fa424-447a-11eb-a6ff-0242ac140004"
+        },
+        {
+        "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
+        "url":"turns:ss-turn2.xirsys.com:5349?transport=tcp",
+        "credential":"b30fa424-447a-11eb-a6ff-0242ac140004"
+        }
+    ] 
+}
 
 navigator.mediaDevices.getUserMedia({ video:true, audio: true })
 .then(stream => {
@@ -93,7 +130,7 @@ function removePeer(socket_id) {
 //
 
 function addPeer(socket_id, am_initiator){
-    peers[socket_id] = new Peer({ initiator: am_initiator, trickle: false, stream: localStream})
+    peers[socket_id] = new Peer({ initiator: am_initiator, trickle: false, stream: localStream, config: configuration})
 
     peers[socket_id].on('signal', data => {
         socket.emit('signal', {
