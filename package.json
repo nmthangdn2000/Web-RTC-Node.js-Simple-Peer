@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm i",
     "start": "node server.js",
-    "devStart": "nodemon --inspect server.js",
+    "devStart": "nodemon server.js",
     "webpack": "webpack --config ./build/webpack.config.js"
   },
   "author": "",
