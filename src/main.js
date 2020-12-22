@@ -125,6 +125,8 @@ function addPeer(socket_id, am_initiator){
 }
 
 function getStream(stream, socket_id){
+    const divNotGhim = document.querySelector('.videos .not-gim-layout')
+
     const mdiv = document.createElement('div')
     const myVideo = document.createElement('video')
     // button in video
@@ -150,13 +152,22 @@ function getStream(stream, socket_id){
     myVideo.onloadeddata = () => {
         myVideo.play()
     }
-    
     mdiv.append(myVideo)
     mdiv.append(button1)
     mdiv.append(button2)
-    videoGrid.append(mdiv)
+    if(divNotGhim != null){
+        mdiv.classList.toggle('box')
+        mdiv.classList.toggle('box-video')
+        divNotGhim.append(mdiv)
+    }else{
+        videoGrid.append(mdiv)
+    }
+    
+    
     myVideo.addEventListener('mouseover', function(){mouseHoverVideo(socket_id)})
     myVideo.addEventListener('mouseout', function(){mouseHoverOutVideo(socket_id)})
+    
+
 }
 
 // change css
@@ -184,9 +195,14 @@ function myOnClickVideo(id, type){
     const button2 = document.querySelector('#'+id+' #button-showlayout ion-icon')
     if(type == "button1"){
         if(button1.name == 'eyedrop')
+        {
             button1.name = 'backspace'
-        else
+            setUpGhim(true, id)
+        }
+        else{
             button1.name = 'eyedrop'
+            setUpGhim(false, id)
+        }
     }
     else if(type == "button2"){
         if(button2.name == 'volume-high')
@@ -196,6 +212,40 @@ function myOnClickVideo(id, type){
         }
         if(id == 'mytabvideo')
             onClickMic() 
+    }
+}
+function setUpGhim(checkGhim, id){
+    const divVideo = document.querySelector('.videos')
+    const divBox = document.getElementById(id)
+    const divBoxAll = document.querySelectorAll('.videos .box')
+    const divGhim = document.querySelector('.videos .gim-layout')
+    const divNotGhim = document.querySelector('.videos .not-gim-layout')
+    // ghim
+    if(checkGhim){
+        const myDivGhim = document.createElement('div')
+        myDivGhim.classList.add('gim-layout')
+        if(divGhim == null)
+            divVideo.append(myDivGhim)
+        myDivGhim.append(divBox)
+        divBox.classList.toggle('box')
+        divBox.classList.toggle('gim')
+        //
+        const myDinNotGhim = document.createElement('div')
+        myDinNotGhim.classList.add('not-gim-layout')
+        if(divNotGhim == null)
+            divVideo.append(myDinNotGhim)
+        for (let index = 0; index < divBoxAll.length; index++) {
+            const element = divBoxAll[index];
+            if(element.id != id){
+                element.classList.toggle('box')
+                element.classList.toggle('box-video')
+                myDinNotGhim.append(element)
+            }
+        }
+    }
+    // bỏ ghim
+    else{
+
     }
 }
 function mouseHoverVideo(id){

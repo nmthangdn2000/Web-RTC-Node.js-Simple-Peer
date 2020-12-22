@@ -6,14 +6,13 @@ body{
 .container{
     display: block;
     height: 100vh;
-    background-color: yellow;
+    background-color: #111;
     padding: 10px;   
 }
 .videos{
     display: flex;
     width: 100%;
     height: 95%;
-    background-color: #111;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
@@ -387,3 +386,45 @@ video:hover{
     word-wrap: break-word;
 }
 /* layout-chat */
+/* ghim */
+.videos.reorder-container{
+    flex-direction: column;
+}
+.gim-layout{
+    position: relative;
+    flex: 3;
+    height: 100%;
+}
+.not-gim-layout{
+    position: relative;
+    left: 0;
+    top: 0;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.not-gim-layout.reorder{
+    flex-direction: row;
+}
+.gim-layout .gim{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    transition: 3s;
+    transform: translate(-50%, -50%);
+}
+.not-gim-layout .box-video{
+    position: relative;
+    width: auto;
+    height: 40%;
+    margin: 5px;
+    box-sizing: border-box;
+}
+/* ghim */
