@@ -217,35 +217,81 @@ function myOnClickVideo(id, type){
 function setUpGhim(checkGhim, id){
     const divVideo = document.querySelector('.videos')
     const divBox = document.getElementById(id)
+    const divBoxButtonGhim= document.querySelector('#'+id+' #button-pins ion-icon')
     const divBoxAll = document.querySelectorAll('.videos .box')
     const divGhim = document.querySelector('.videos .gim-layout')
     const divNotGhim = document.querySelector('.videos .not-gim-layout')
     // ghim
     if(checkGhim){
         const myDivGhim = document.createElement('div')
-        myDivGhim.classList.add('gim-layout')
-        if(divGhim == null)
-            divVideo.append(myDivGhim)
-        myDivGhim.append(divBox)
-        divBox.classList.toggle('box')
-        divBox.classList.toggle('gim')
-        //
-        const myDinNotGhim = document.createElement('div')
-        myDinNotGhim.classList.add('not-gim-layout')
-        if(divNotGhim == null)
-            divVideo.append(myDinNotGhim)
-        for (let index = 0; index < divBoxAll.length; index++) {
-            const element = divBoxAll[index];
-            if(element.id != id){
-                element.classList.toggle('box')
-                element.classList.toggle('box-video')
-                myDinNotGhim.append(element)
-            }
+        const myDivNotGhim = document.createElement('div')
+        // kiểm tra video đã chọn ghim hay chưa
+        console.log(divBox.className);
+        if(divBox.className === "box-video"){
+            const divGhimNew = document.querySelector('.videos .gim-layout .gim')
+            const divGhimNewButtonGhim= document.querySelector('#'+divGhimNew.id+' #button-pins ion-icon')
+            console.log(divGhim);
+            divGhimNew.classList.toggle('gim')
+            divGhimNew.classList.toggle('box-video')
+            divGhimNewButtonGhim.name = 'eyedrop'
+            divNotGhim.append(divGhimNew)
+            //
+            divBox.classList.toggle('gim')
+            divBox.classList.toggle('box-video')
+            divBoxButtonGhim.name = 'backspace'
+            divGhim.append(divBox)
+        }else{
+            myDivGhim.classList.add('gim-layout')
+            if(divGhim == null)
+                divVideo.append(myDivGhim)
+            myDivGhim.append(divBox)
+            divBox.classList.toggle('box')
+            divBox.classList.toggle('gim')
+            //
+            myDivNotGhim.classList.add('not-gim-layout')
+            if(divNotGhim == null)
+                divVideo.append(myDivNotGhim)
+            if(divBoxAll != null)
+                for (let index = 0; index < divBoxAll.length; index++) {
+                    const element = divBoxAll[index];
+                    if(element.id != id){
+                        element.classList.toggle('box')
+                        element.classList.toggle('box-video')
+                        myDivNotGhim.append(element)
+                    }
+                }
         }
     }
     // bỏ ghim
     else{
-
+        const myTabVideo = document.getElementById('mytabvideo') 
+        const divGhimAll = document.querySelector('.videos .gim-layout .gim')
+        const divNotGhimAll = document.querySelectorAll('.videos .not-gim-layout .box-video')
+        console.log("cai lozz ma "+myTabVideo.className);
+        if(myTabVideo.className === 'box-video')
+            myTabVideo.classList.toggle('box-video')
+        else if(myTabVideo.className === 'gim')
+            myTabVideo.classList.toggle('gim')
+        myTabVideo.classList.toggle('box')
+        divVideo.append(myTabVideo) 
+        console.log("cai lozz ma2 "+myTabVideo.className);
+        //
+        if(divGhimAll.id != 'mytabvideo'){
+            divGhimAll.classList.toggle('box')
+            divGhimAll.classList.toggle('gim')
+            divVideo.append(divGhimAll) 
+        }
+        for (let index = 0; index < divNotGhimAll.length; index++) {
+            const element = divNotGhimAll[index];
+            if(element.id != 'mytabvideo'){
+                element.classList.toggle('box')
+                element.classList.toggle('box-video')
+                divVideo.append(element)  
+            }
+            
+        } 
+        divGhim.remove()
+        divNotGhim.remove()
     }
 }
 function mouseHoverVideo(id){
