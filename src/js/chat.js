@@ -2,9 +2,14 @@ const mess = document.getElementById('editTex-chat')
 const layout_chat = document.getElementById('chat-layout')
 module.exports.sendMess = function sendMess(SOCKETID_USER, socket){
     mess.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
+        if(event.shiftKey && event.keyCode === 13){
+            event.preventDefault();
+            mess.innerHTML+= '\n/g'
+        }
+        else if (event.keyCode === 13) {
             event.preventDefault();
             sendMesss(mess.value, SOCKETID_USER, socket)
+            layout_chat.scrollTop = layout_chat.scrollHeight;
         }
     });
     socket.on('send-mess', (value, username) => {

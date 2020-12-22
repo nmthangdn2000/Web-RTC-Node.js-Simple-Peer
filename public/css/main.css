@@ -8,7 +8,6 @@ body{
     height: 100vh;
     background-color: yellow;
     padding: 10px;   
-    transition: 0.5s;
 }
 .videos{
     display: flex;
@@ -317,27 +316,40 @@ video:hover{
     text-align: center;
     vertical-align: middle;
 }
+.tabs .tabContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
 .tabs .tabContainer div{
+    flex: 1;
     padding: 20px 10px;
     box-sizing: border-box;
-    float: left;
-    width: 50%;
     border-bottom: 1px solid #dadce0;
 }
 .tabs .tabContainer div:hover{
-    background: rgba(0,121,107,0.039);
+    background-color: rgba(0,121,107,0.039);
     cursor: pointer;
 }
 .tabs .tabPanel{
-    height: 81vh;
+    height: 83vh;
     width: 100%;
-    padding-top: 70px;
     display: none;
 }
 .tabs .tabPanel .frame-chat{
     position: relative;
     height: 100%;
     width: 100%;
+}
+.tabs .tabPanel .frame-chat #chat-layout{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 72vh;
+    background: chocolate;
+    width: 100%;
+    overflow: auto;
 }
 .tabs .tabPanel .frame-chat .bottom-editText{
     position: absolute;

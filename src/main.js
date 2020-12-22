@@ -9,6 +9,7 @@ let peers = {}
 let localStream = null
 let numberUserConnection = 0
 var SOCKETID_USER = ''
+let statusFrameChat = false
 
 navigator.mediaDevices.getUserMedia({ video:true, audio: true })
 .then(stream => {
@@ -167,7 +168,9 @@ function changeCss(number){
     const video = document.querySelectorAll('.box video')
     for (let index = 0; index < number; index++) {
         video[index].style.height = '80%'
-        if(number >= 5) {
+        if(statusFrameChat && number == 2)
+            video[index].style.height = '60%'
+        else if(number >= 5) {
             classBox[index].style.flex = '1 0 31%'
         }
         else if(number == 1){
@@ -252,12 +255,25 @@ window.onpenFramesChat = (id) => {
     document.getElementById('div-bottom').style.width = "78%"
     document.getElementById("container").style.marginRight = "300px"
     document.getElementById('menu-top-right').style.height = "0"
+    const classBox = document.getElementsByClassName('box')
+    const video = document.querySelectorAll('.box video')
+    for (let index = 0; index < numberUserConnection; index++) {
+        if(numberUserConnection == 2)
+            video[index].style.height = '60%'
+    }
+    statusFrameChat = true
 }
 window.closeFrameUsersChat = () => {
     document.getElementById("frame-users-chat").style.width = "0"
     document.getElementById('div-bottom').style.width = "100%"
     document.getElementById("container").style.marginRight = "0"
     document.getElementById('menu-top-right').style.height = "48px"
+    const video = document.querySelectorAll('.box video')
+    for (let index = 0; index < numberUserConnection; index++) {
+        if(numberUserConnection == 2)
+            video[index].style.height = '80%'
+    }
+    statusFrameChat = false
 }
 
 
