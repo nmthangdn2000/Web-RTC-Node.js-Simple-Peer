@@ -13,7 +13,7 @@ let statusFrameChat = false
 const configuration = {
     "iceServers":[
         {
-        "url":"stun:ss-turn2.xirsys.com"
+        "urls":"stun:ss-turn2.xirsys.com"
         },
         {
         "username":"7ETtyeISctYstM4RPeJ5nWicOeKNFC7jDbzJZqQp135ujxeIeEiz_m708r7tN_8oAAAAAF_iLA5ubXRoYW5nbjIwMDA=",
@@ -171,12 +171,10 @@ function getStream(stream, socket_id){
     const button2 = document.createElement('div')
     button1.classList.add('button-video')
     button1.classList.add('button-pins')
-    button1.setAttribute('id', 'button-pins')
     button1.innerHTML += '<ion-icon name="eyedrop" class="button-pins-showlayout"></ion-icon>'
     button2.classList.add('button-video')
     button2.classList.add('button-showlayout')
     button2.innerHTML += '<ion-icon name="volume-high" class="button-pins-showlayout"></ion-icon>'
-    button2.setAttribute('id', 'button-showlayout')
     // set event click
     button1.onclick = function() {myOnClickVideo(socket_id, "button1")}
     button2.onclick = function() {myOnClickVideo(socket_id, "button2")}
@@ -228,8 +226,8 @@ function changeCss(number){
     }
 }
 function myOnClickVideo(id, type){
-    const button1 = document.querySelector('#'+id+' #button-pins ion-icon')
-    const button2 = document.querySelector('#'+id+' #button-showlayout ion-icon')
+    const button1 = document.querySelector('#'+id+' .button-pins ion-icon')
+    const button2 = document.querySelector('#'+id+' .button-showlayout ion-icon')
     if(type == "button1"){
         if(button1.name == 'eyedrop')
         {
@@ -254,7 +252,7 @@ function myOnClickVideo(id, type){
 function setUpGhim(checkGhim, id){
     const divVideo = document.querySelector('.videos')
     const divBox = document.getElementById(id)
-    const divBoxButtonGhim= document.querySelector('#'+id+' #button-pins ion-icon')
+    const divBoxButtonGhim= document.querySelector('#'+id+' .button-pins ion-icon')
     const divBoxAll = document.querySelectorAll('.videos .box')
     const divGhim = document.querySelector('.videos .gim-layout')
     const divNotGhim = document.querySelector('.videos .not-gim-layout')
@@ -266,7 +264,7 @@ function setUpGhim(checkGhim, id){
         console.log(divBox.className);
         if(divBox.className === "box-video"){
             const divGhimNew = document.querySelector('.videos .gim-layout .gim')
-            const divGhimNewButtonGhim= document.querySelector('#'+divGhimNew.id+' #button-pins ion-icon')
+            const divGhimNewButtonGhim= document.querySelector('#'+divGhimNew.id+' .button-pins ion-icon')
             console.log(divGhim);
             divGhimNew.classList.toggle('gim')
             divGhimNew.classList.toggle('box-video')
@@ -333,8 +331,8 @@ function setUpGhim(checkGhim, id){
 }
 function mouseHoverVideo(id){
     
-    const button1 = document.querySelector('#'+id+' #button-pins')
-    const button2 = document.querySelector('#'+id+' #button-showlayout')
+    const button1 = document.querySelector('#'+id+' .button-pins')
+    const button2 = document.querySelector('#'+id+' .button-showlayout')
     const myVideo = document.querySelector('#'+id+' video')
     button1.style.display = 'block'
     button2.style.display = 'block'
@@ -366,8 +364,8 @@ function mouseHoverVideo(id){
 }
 function mouseHoverOutVideo(id){
     const myVideo = document.querySelector('#'+id+' video')
-    const button1 = document.querySelector('#'+id+' #button-pins')
-    const button2 = document.querySelector('#'+id+' #button-showlayout')
+    const button1 = document.querySelector('#'+id+' .button-pins')
+    const button2 = document.querySelector('#'+id+' .button-showlayout')
     button1.style.display = 'none'
     button2.style.display = 'none'
     myVideo.style.opacity = '1'
