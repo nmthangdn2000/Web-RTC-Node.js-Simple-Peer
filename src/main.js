@@ -3,7 +3,9 @@ const tabs = require('./js/tabs')
 const click_outside = require('./js/click_outside')
 const emoji = require('./js/emoji')
 const chatmess = require('./js/chat')
+const animation_flex = require('./js/animation_flex_direction')
 const socket = io()
+
 const videoGrid = document.getElementById('video-grid')
 let peers = {}
 let localStream = null
@@ -382,6 +384,10 @@ function getHours(){
 
 window.onpenFramesChat = (id) => {
     alert(id)
+    const divGhim = document.querySelector('.videos .gim-layout')
+    if(divGhim != null){
+        animation_flex.AnimationFlex()
+    }
     document.getElementById("frame-users-chat").style.width = "300px"
     document.getElementById('div-bottom').style.width = "78%"
     document.getElementById("container").style.marginRight = "300px"

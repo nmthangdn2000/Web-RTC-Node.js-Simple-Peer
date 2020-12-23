@@ -33,35 +33,35 @@
         <span class="number-menu-top-right" id="number-chat">12</span>
         <span class="icon-user-chat"><ion-icon name="chatbox-ellipses" ></ion-icon></span>
       </div>
-      <div class="time-now" id="time-now">
-        
-      </div>
+      <div class="time-now" id="time-now"></div>
     </div>
     <!-- khung chat -->
     <div class="chat" id="frame-users-chat">
-      <div class="title-frame-users-chat">
-        <h3>Chi tiết hội thảo</h3>
-        <ion-icon name="close-outline" id="button-close" onclick="closeFrameUsersChat()"></ion-icon>
-      </div>
-      <div class="tabs">
-        <div class="tabContainer">
-          <div class="tabPeople" id="tabPeople">
-            <span><ion-icon class="iconTab" name="people-outline"></ion-icon> Người dùng</span>
-          </div>
-          <div class="tabChat" id="tabChat">
-            <span><ion-icon class="iconTab" name="chatbubble-ellipses-outline"></ion-icon> Trò chuyện</span>
-          </div>
+      <div class="chat-detail">
+        <div class="title-frame-users-chat">
+          <h3>Chi tiết hội thảo</h3>
+          <ion-icon name="close-outline" id="button-close" onclick="closeFrameUsersChat()"></ion-icon>
         </div>
-        <div class="tabPanel">
-          người dùng
-        </div>
-        <div class="tabPanel">
-          <div class="frame-chat">
-            <div id="chat-layout"></div>
-            <div class="bottom-editText">
-              <textarea id="editTex-chat" name="ádasd" id=""></textarea>
+        <div class="tabs">
+          <div class="tabContainer">
+            <div class="tabPeople" id="tabPeople">
+              <span><ion-icon class="iconTab" name="people-outline"></ion-icon> Người dùng</span>
             </div>
-            <%- include('../frontend/emotion.ejs') %>
+            <div class="tabChat" id="tabChat">
+              <span><ion-icon class="iconTab" name="chatbubble-ellipses-outline"></ion-icon> Trò chuyện</span>
+            </div>
+          </div>
+          <div class="tabPanel">
+            người dùng
+          </div>
+          <div class="tabPanel">
+            <div class="frame-chat">
+              <div id="chat-layout"></div>
+              <div class="bottom-editText">
+                <textarea id="editTex-chat" name="ádasd" id=""></textarea>
+              </div>
+              <%- include('../frontend/emotion.ejs') %>
+            </div>
           </div>
         </div>
       </div>
