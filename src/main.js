@@ -8,6 +8,7 @@ const socket = io()
 
 const videoGrid = document.getElementById('video-grid')
 let peers = {}
+let people = {}
 let localStream = null
 let numberUserConnection = 0
 var SOCKETID_USER = ''
@@ -63,6 +64,12 @@ navigator.mediaDevices.getUserMedia({ video:true, audio: true })
         console.log("socketidUser", SOCKETID_USER);
         chatmess.sendMess(SOCKETID_USER, socket)
         // peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
+    })
+    socket.on('user-name', (socket_id, username) => {
+        addUser(socket_id, username)
+    })
+    socket.on('user-name-for-me', (socket_id, username) => {
+        addUser(socket_id, username)
     })
     //
     socket.on('initReceive', socket_id => {
@@ -162,7 +169,21 @@ function addPeer(socket_id, am_initiator){
         console.log("",err);
     })
 }
-
+function addUser(socket_id, username) {
+    people[socket_id] = username
+    const divUser = document.querySelector('.tabPanel')
+    let html =  '<div class="user">'+
+                    '<div class="avata">'+
+                    '<ion-icon name="person-circle-outline"></ion-icon>'+
+                    '</div>'+
+                    '<div class="user-name">'+people[socket_id]+'</div>'+
+                    '<div class="user-ghim"><ion-icon name="eyedrop-outline"></ion-icon></div>'+
+                    '<div class="user-volumn"><ion-icon name="volume-high-outline"></ion-icon></div>'+
+                '</div>'
+    if(divUser){
+        divUser.innerHTML += html
+    }
+}
 function getStream(stream, socket_id){
     const divNotGhim = document.querySelector('.videos .not-gim-layout')
 

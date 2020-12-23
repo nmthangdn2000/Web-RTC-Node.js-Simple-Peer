@@ -17,7 +17,11 @@ io.on('connection', (socket) => {
         people[socket.id] = user
         console.log("aaaaaaaaaaa",people[socket.id]);
         socket.join(roomID)
-        console.log(io.sockets.adapter.rooms[roomID]);
+        socket.to(roomID).emit('user-name', socket.id, user);
+        Object.keys(io.sockets.adapter.rooms[roomID].sockets).forEach(element => {
+            if(element != socket.id)
+                socket.emit('user-name-for-me', element, people[element]);
+        });
     })
     // chat
     socket.on('send-mess', (value, iduser, roomId) => {
