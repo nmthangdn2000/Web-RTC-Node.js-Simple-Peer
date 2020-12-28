@@ -221,7 +221,6 @@ function getStream(stream, socket_id){
         videoGrid.append(mdiv)
     }
     
-    
     myVideo.addEventListener('mouseover', function(){mouseHoverVideo(socket_id)})
     myVideo.addEventListener('mouseout', function(){mouseHoverOutVideo(socket_id)})
     
@@ -281,6 +280,7 @@ function setUpGhim(checkGhim, id){
     const divNotGhim = document.querySelector('.videos .not-gim-layout')
     // ghim
     if(checkGhim){
+        
         const myDivGhim = document.createElement('div')
         const myDivNotGhim = document.createElement('div')
         // kiểm tra video đã chọn ghim hay chưa
@@ -319,6 +319,8 @@ function setUpGhim(checkGhim, id){
                     }
                 }
         }
+        if(statusFrameChat)
+            animation_flex.AnimationFlex(statusFrameChat)
     }
     // bỏ ghim
     else{
@@ -407,7 +409,7 @@ window.onpenFramesChat = (id) => {
     alert(id)
     const divGhim = document.querySelector('.videos .gim-layout')
     if(divGhim != null){
-        animation_flex.AnimationFlex()
+        animation_flex.AnimationFlex(true)
     }
     document.getElementById("frame-users-chat").style.width = "300px"
     document.getElementById('div-bottom').style.width = "78%"
@@ -422,6 +424,10 @@ window.onpenFramesChat = (id) => {
     statusFrameChat = true
 }
 window.closeFrameUsersChat = () => {
+    const divGhim = document.querySelector('.videos .gim-layout')
+    if(divGhim != null){
+        animation_flex.AnimationFlex(false)
+    }
     document.getElementById("frame-users-chat").style.width = "0"
     document.getElementById('div-bottom').style.width = "100%"
     document.getElementById("container").style.marginRight = "0"

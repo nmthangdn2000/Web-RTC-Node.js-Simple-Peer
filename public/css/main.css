@@ -410,6 +410,7 @@ video:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 .not-gim-layout.reorder{
     flex-direction: row;
