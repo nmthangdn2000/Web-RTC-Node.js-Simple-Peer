@@ -7,6 +7,58 @@
 	<link rel="stylesheet" href="css/lounge.css">
 </head>
 <body>
+	<!-- modal login -->
+	<div id="myModal" class="modal">
+		<div class="modal-container" id="modal-container">
+			<span class="close">&times;</span>
+			<div class="form-modal-container sign-up-modal-container">
+				<form action="#">
+					<h1>Tạo tài khoảng</h1>
+					<div class="social-modal-container">
+						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+						<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+					<span>hoặc sử dụng email của bạn để đăng ký</span>
+					<input type="text" placeholder="Tên đăng nhập ..." />
+					<input type="email" placeholder="Địa chỉ email" />
+					<input type="password" placeholder="Mật khẩu" />
+					<button>Đăng ký</button>
+				</form>
+			</div>
+			<div class="form-modal-container sign-in-modal-container">
+				<form action="#">
+					<h1>Đăng nhập</h1>
+					<div class="social-modal-container">
+						<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+						<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+					<span>hoặc sử dụng tài khoảng của bạn</span>
+					<input type="email" placeholder="Địa chỉ email ..." />
+					<input type="password" placeholder="Mật khẩu" />
+					<a href="#">Quên mật khẩu?</a>
+					<button>Đăng nhập</button>
+				</form>
+			</div>
+			<div class="overlay-modal-container">
+				<div class="overlay">
+					<div class="overlay-panel overlay-left">
+						<h1>Welcome Back!</h1>
+						<p>Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá nhân của bạn</p>
+						<button class="ghost" id="signIn">Đăng nhập</button>
+					</div>
+					<div class="overlay-panel overlay-right">
+						<h1>Chào bạn!</h1>
+						<p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi</p>
+						<button class="ghost" id="signUp">Đăng ký</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- modal login -->
+
     <div class="container">
 		<header id="header" class="">
 			<h1>Ứng dụng hội thảo từ xa</h3>	
@@ -29,7 +81,7 @@
 						</form>
 					</div>
 					<div class="item-layout-right join-room">
-						<a href="">Đăng nhập</a> <span>hoặc</span> <a href="" title="">đăng ký</a> để có thể tạo phòng họp
+						<a id="myBtn">Đăng nhập</a> <span>hoặc</span> <a>đăng ký</a> để có thể tạo phòng họp
 					</div>
 				</div>
 			</div>
@@ -41,6 +93,46 @@
 			const ROOM_ID = "<%= roomID %>"
 			document.getElementById('froom').value = ROOM_ID
 		<% } %>
+		// 
+	</script>
+	<script>
+		// Get the modal
+		const modal = document.getElementById("myModal");
+
+		// Get the button that opens the modal
+		const btn = document.getElementById("myBtn");
+
+		// Get the <span> element that closes the modal
+			const span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+		  modal.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		}
+		
+		const signUpButton = document.getElementById('signUp');
+		const signInButton = document.getElementById('signIn');
+		const modal_container = document.getElementById('modal-container');
+
+		signUpButton.addEventListener('click', () => {
+			modal_container.classList.add("right-panel-active");
+		});
+
+		signInButton.addEventListener('click', () => {
+			modal_container.classList.remove("right-panel-active");
+		});
 	</script>
 </body>
 </html>
