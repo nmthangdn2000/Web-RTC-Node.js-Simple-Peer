@@ -1,11 +1,14 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const {v4: uuidV4} = require('uuid')
 
 app.use(express.static(__dirname + '/public'))
 app.set('views', './views')
 app.set('view engine', 'ejs');
+app.use(cookieParser())
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.json());
@@ -14,7 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 
 const routerLounge = require('./routers/lounge.router')
 const routerRoomCall = require('./routers/roomCall.router')
+const routerLogin = require('./routers/login.router')
 
+app.use(routerLogin)
 app.use(routerLounge)
 app.use(routerRoomCall)
 

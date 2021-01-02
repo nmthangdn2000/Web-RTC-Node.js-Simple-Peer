@@ -7,7 +7,7 @@ const endCodeToken = (inforUser) => {
 }
 // đăng ký
 const postSignUp = async (req, res) => {
-    const newAccount = new Account({
+    const newAccount = await new Account({
         user_name: req.body.userName, 
         email: req.body.email,
         password: req.body.passWord,
@@ -28,22 +28,22 @@ const postSignUp = async (req, res) => {
 }
 // đăng nhập
 const postSignIn = async (req, res) => {
-    const data = req.account
+    const data = req.user
     const inforUser = {
         id: data._id,
         userName: data.userName
     }
     const token = endCodeToken(inforUser)
-    res.json({
-        _id: data._id,
-        user_name: data.userName,
-        email: data.email,
-        avata: data.avata,
-        token: token
-    })
+    res.cookie('token', 'Bearer '+token, {maxAge: 1000*60*60*24*30})
+    res.redirect('lounge')
 }
-
+// đăng xuất
+const getSignOut = async (req, res) => {
+    res.clearCookie('token')
+    res.redirect('/lounge');
+}
 module.exports = {
     postSignUp,
-    postSignIn
+    postSignIn,
+    getSignOut
 }

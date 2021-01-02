@@ -16,7 +16,7 @@ const accountSchema = new mongoose.Schema({
     },
     avata:{
         type: String,
-        required: true,
+        require: true,
     },
     create_at:{
         type: Number,
@@ -31,12 +31,12 @@ const accountSchema = new mongoose.Schema({
 accountSchema.pre('save', async function(next){
     try {
         // Generatipn a salt ...
-        const salt = await brcypt.genSalt(100)
+        const salt = await brcypt.genSalt(10)
         // Generation a password hash (salt + hash)
         const passWordHashed = await brcypt.hash(this.password, salt)
         //Re-assign password hashed
         this.password = passWordHashed
-
+        
         next()
 
     } catch (error) {
@@ -44,7 +44,7 @@ accountSchema.pre('save', async function(next){
     }
 })
 
-accountSchema.method.isValidPassWord = async function (newPassword) {
+accountSchema.methods.isValidPassWord = async function(newPassword) {
     try {
         return await brcypt.compare(newPassword, this.password)
     } catch (error) {
