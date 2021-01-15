@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="css/lounge.css">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
 	<div>
@@ -12,6 +13,11 @@
 			<h1><%= user.user_name %></h1>
 		<% } %>
 	</div>
+	<!-- toats -->
+	<div class="box-toast-alert">
+
+	</div>
+	<!-- end toats -->
 	<!-- modal login -->
 	<div id="myModal" class="modal">
 		<div class="modal-container" id="modal-container">
@@ -62,8 +68,20 @@
 			</div>
 		</div>
 	</div>
-		<!-- modal login -->
-
+	<!-- modal login -->
+	<!-- modal search room -->
+	<div id="myModal-search" class="modal">
+		<div class="modal-container" id="modal-container-search">
+			<span class="close" id="close-search">&times;</span>
+			<div>
+				weqweqwewqeqw <br>
+				qưeqweqweqwe
+				<br>
+				qưeqwewqe
+			</div>
+		</div>
+	</div>
+	<!-- modal search room -->
     <div class="container">
 		<header id="header" class="">
 			<h1>Ứng dụng hội thảo từ xa</h3>	
@@ -77,67 +95,40 @@
 			<div class="element">
 				<div class="layout-right">
 					<div class="item-layout-right not-account">
-						<form action="/room_id" method="POST" accept-charset="utf-8">
+						<form id="button-submit" name="formlonge" action="room_id" method="POST" accept-charset="utf-8">
 							<label for="fname" class="label-name">Nhập tên của bạn</label><br>
    							<input type="text" class="input_text" id="fname" name="name" placeholder="Tên của bạn ..."><br>
-   							<label for="froom" class="label-name">Nhập id phòng họp</label><br>
+							<label for="froom" class="label-name">Nhập id phòng họp</label>
+							<input type="button" id="search-room" name="searchroom" value="Tìm phòng"><br>
    							<input type="text" class="input_text" id="froom" name="roomid" placeholder="ID phòng họp ..."><br>
-   							<input type="submit" name="submit" value="Tham gia">
+							<input type="submit" name="btnsubmit" value="Tham gia">
+							<% if(typeof user != "undefined"){  %>
+							<input type="button" id="create-room" name="createid" value="Tạo phòng">
+							<% } %>
 						</form>
 					</div>
+					<% if(typeof user == "undefined"){  %>
 					<div class="item-layout-right join-room">
 						<a id="myBtn">Đăng nhập</a> <span>hoặc</span> <a>đăng ký</a> để có thể tạo phòng họp
 					</div>
+					<% } %>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/lounge.js"></script>
 	<script>
 		<% if(typeof roomID !== "undefined"){ %>
 			const ROOM_ID = "<%= roomID %>"
 			document.getElementById('froom').value = ROOM_ID
 		<% } %>
-		// 
-	</script>
-	<script>
-		// Get the modal
-		const modal = document.getElementById("myModal");
-
-		// Get the button that opens the modal
-		const btn = document.getElementById("myBtn");
-
-		// Get the <span> element that closes the modal
-			const span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks the button, open the modal 
-		btn.onclick = function() {
-		  modal.style.display = "block";
-		}
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
-		  modal.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-		  if (event.target == modal) {
-		    modal.style.display = "none";
-		  }
-		}
-		
-		const signUpButton = document.getElementById('signUp');
-		const signInButton = document.getElementById('signIn');
-		const modal_container = document.getElementById('modal-container');
-
-		signUpButton.addEventListener('click', () => {
-			modal_container.classList.add("right-panel-active");
-		});
-
-		signInButton.addEventListener('click', () => {
-			modal_container.classList.remove("right-panel-active");
-		});
+		<% if(typeof user != "undefined"){  %>
+			const username = "<%= user.user_name %>"
+			document.getElementById("fname").value = username
+			document.getElementById("fname").setAttribute("readonly", "true")
+		<%}%>
 	</script>
 </body>
 </html>

@@ -3,7 +3,6 @@ const app = express()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const {v4: uuidV4} = require('uuid')
 
 app.use(express.static(__dirname + '/public'))
 app.set('views', './views')
