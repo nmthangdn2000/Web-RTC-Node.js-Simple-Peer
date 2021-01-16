@@ -47,6 +47,7 @@ const postRoom = async (req, res) => {
 }  
 //
 const getAllRoom = async (req, res) => {
+    console.log("vào getall");
     await RoomCall.find()
     .then(data => {
         res.json(data)

@@ -12,6 +12,11 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 .catch(err => {
     console.log("", err);
 })
+// box search
+document.getElementById('box-search').addEventListener('keyup', function(e) {
+    e.preventDefault();
+    searchRoom()
+})
 // button submit
 const btnSubmit = document.getElementById('button-submit')
 btnSubmit.onsubmit = function (e){
@@ -125,7 +130,43 @@ const span_search = document.getElementById('close-search')
 
 // When the user clicks the button, open the modal 
 btn_search.onclick = function() {
+    const body_table = document.querySelector('.content-table tbody')
+    const loader = document.querySelector('.loader')
+    loader.style.display = 'block'
+    body_table.style.display = 'none'
+
+    body_table.innerHTML = ''
     modal_search.style.display = "block";
+    axios({
+        method: 'get',
+        url: 'http://localhost:3000/room_id',
+    })
+    .then(function (response) {
+        let i = 0
+        response.data.forEach(element => {
+            i++
+            let html = '<tr data-room="'+element.room_id+'">'+
+                        '<td width="5%">'+i+'</td>'+
+                        '<td width="20%">'+element.room_name+'</td>'+
+                        '<td width="30%">'+element.room_id+'</td>'+
+                        '<td width="10%">'+element.status+'</td>'+
+                        '<td width="15%">'+element.room_mode+'</td>'+
+                        '<td width="10%">2</td>'+
+                    '</tr>'
+            body_table.insertAdjacentHTML( 'beforeend', html)
+        })
+        setTimeout(function(){
+            loader.style.display = 'none'
+            body_table.style.display = 'block'
+        }, 2000)
+        const rows = document.querySelectorAll('.content-table tbody tr[data-room]')
+        rows.forEach(element => {
+            element.addEventListener('click', () => {
+                document.getElementById('froom').value = element.getAttribute('data-room')
+                modal_search.style.display = 'none'
+            })
+        });
+    })
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -144,3 +185,21 @@ window.onclick = function(event) {
 }
 // modal search room
 // modal đăng nhập đăng ký ----------------------------------------------------------------------------------
+function searchRoom(){
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("box-search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table-room");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+        }       
+    }
+}

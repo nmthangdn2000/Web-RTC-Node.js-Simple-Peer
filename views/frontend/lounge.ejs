@@ -73,11 +73,31 @@
 	<div id="myModal-search" class="modal">
 		<div class="modal-container" id="modal-container-search">
 			<span class="close" id="close-search">&times;</span>
+			<div class="div-box-search">
+				<div class="div-search-room">
+					<input type="text" name="box-search" id="box-search" placeholder="Tìm kiếm phòng họp ...">
+					<div class="btn-search" id="btn-search">
+						<ion-icon name="search"></ion-icon>
+					</div>
+				</div>
+			</div>
+			<div class="loader"></div>
 			<div>
-				weqweqwewqeqw <br>
-				qưeqweqweqwe
-				<br>
-				qưeqwewqe
+				<table class="content-table" id="table-room"> 
+					<thead>
+						<tr>
+							<th width="5%">Id</th>
+							<th width="20%">RoomName</th>
+							<th width="30%">RoomID</th>
+							<th width="10%">Online</th>
+							<th width="15%">RoomMode</th>
+							<th width="10%">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -117,6 +137,7 @@
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/lounge.js"></script>
 	<script>
