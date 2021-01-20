@@ -4,9 +4,10 @@ let people = {}
 
 io.on('connection', (socket) => {
     console.log(socket.id);
-    
+    peer[socket.id] = socket
+
+    socket.emit('lounge', socket.id)
     socket.on('NewUser', roomID => {
-        peer[socket.id] = socket
         console.log("đã kết nối " + socket.id)
         socket.emit('getsocketid', socket.id)
         socket.to(roomID).emit('initReceive', socket.id)
@@ -22,6 +23,19 @@ io.on('connection', (socket) => {
             if(element != socket.id)
                 socket.emit('user-name-for-me', element, people[element]);
         });
+    })
+    // lounge join room
+    socket.on('lounge-join-room', (username, roomId, socketid) => {
+        if(io.sockets.adapter.rooms[roomId] != undefined){
+            const socketid_master = Object.keys(io.sockets.adapter.rooms[roomId].sockets)[0]
+            io.to(roomId).emit('room-master', username, socketid_master, socketid)
+        }else{
+            socket.emit('join-room-ok')
+        }
+    })
+    //feedback-join-room
+    socket.on('feedback-join-room', (feedback, socketid) => {
+        peer[socketid].emit('feedback-join-room', feedback)
     })
     // chat
     socket.on('send-mess', (value, iduser, roomId) => {

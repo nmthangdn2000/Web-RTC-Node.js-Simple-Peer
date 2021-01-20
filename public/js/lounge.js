@@ -1,5 +1,9 @@
 const socket = io()
+let SOCKET_ID = null
 
+socket.on('lounge', data => {
+    SOCKET_ID = data
+})
 navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 .then(stream => {
     const video = document.getElementById('video')
@@ -30,7 +34,6 @@ btnSubmit.onsubmit = function (e){
         }
     })
     .then(function (response) {
-        console.log(response.data);
         if(typeof response.data === "object"){
             let i = 0
             response.data.forEach(element => {
@@ -60,10 +63,18 @@ btnSubmit.onsubmit = function (e){
                 }
             })
         }else{
-            document.forms["formlonge"].submit();
+            socket.emit('lounge-join-room', btnSubmit.name.value, btnSubmit.roomid.value, SOCKET_ID)
+           
         }
     })
 }
+socket.on('join-room-ok', ()=>{
+    document.forms["formlonge"].submit();
+})
+socket.on('feedback-join-room', data => {
+    if(data)
+        document.forms["formlonge"].submit();
+})
 //
 
 

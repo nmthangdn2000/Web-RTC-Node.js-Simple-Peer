@@ -474,3 +474,98 @@ video:hover{
     background: rgb(216, 216, 216);
 }
 /* Người dùng trong frame chat */
+/* modal user join */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    border-radius: 10px;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+.close {
+    color: #5f6368;
+    padding: 0 10px;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: white;
+    border-radius: 50%;
+    background:  #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-header {
+    padding: 10px 16px;
+}
+.modal-header .modal-span{
+    font-size: 18px;
+    color: #5f6368;
+}
+.modal-body {
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+    padding: 10px 16px;
+    align-items: center;
+}
+.modal-body img{
+    width: 35px;
+    height: 35px;
+}
+.modal-body span{
+    margin-left: 10px;
+    font-size: 16px;
+    color: #5FB55F;
+}
+.modal-footer {
+    padding: 2px 16px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    flex-grow: inherit;
+    align-items: center;
+}
+.modal-footer span{
+    padding: 8px 10px;
+    font-size: 16px;
+    margin: 10px 5px;
+}
+.modal-footer span:hover{
+    cursor: pointer;
+    border-radius: 5px;
+    background: #3ADF00;
+    color: white;
+}
+/* modal user join */
