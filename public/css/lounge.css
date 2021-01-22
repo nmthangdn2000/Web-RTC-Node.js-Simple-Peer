@@ -619,3 +619,28 @@ header{
   100% { transform: rotate(360deg); }
 }
 /* loader tbody */
+/* modal create room */
+.modal .modal-container .div_radio{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.modal .modal-container .div_radio input[type=radio]{
+  width: 50px;
+}
+#ok-type-room{
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border: 0.1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #4CAF50;
+}
+#ok-type-room:hover{
+  background-color: #45a049;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* modal create room */
+#div_input_room_password{
+  display: none;
+}

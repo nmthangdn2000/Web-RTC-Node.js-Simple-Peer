@@ -18,11 +18,11 @@ const shareRoomURL = (req, res) => {
 }
 //
 const postRoom = async (req, res) => {
+    console.log("con ketj j dday: ", req.body.password_room);
     let checkRoom = false
     user = req.body.name
     const AllRoom = await RoomCall.find()
     AllRoom.some(element => {
-        console.log(element)
         if(element.room_id === req.body.roomid) checkRoom = true
         return element.room_id === req.body.roomid
     })
@@ -31,7 +31,8 @@ const postRoom = async (req, res) => {
             room_id: req.body.roomid,
             room_name: user,
             status: true, // room đang hoạt động
-            room_mode: false, // room đang ở chế độ private
+            room_mode: req.body.type_room, // public: 1, private: 2, password: 3
+            room_password: req.body.password_room,
             create_at: new Date,
             update_at: new Date
         })

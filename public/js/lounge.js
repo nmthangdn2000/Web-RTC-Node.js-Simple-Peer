@@ -25,12 +25,21 @@ document.getElementById('box-search').addEventListener('keyup', function(e) {
 const btnSubmit = document.getElementById('button-submit')
 btnSubmit.onsubmit = function (e){
     e.preventDefault()
+    let type_room = ""
+    let password_room = ""
+    if(btnSubmit.type_room){
+        type_room = btnSubmit.type_room.value
+    }
+    if(btnSubmit.password_room)
+        password_room = btnSubmit.password_room.value
     axios({
         method: 'post',
         url: 'http://localhost:3000/room_id',
         data: {
             name: btnSubmit.name.value,
-            roomid: btnSubmit.roomid.value
+            roomid: btnSubmit.roomid.value,
+            type_room: type_room,
+            password_room: password_room,
         }
     })
     .then(function (response) {
@@ -64,7 +73,6 @@ btnSubmit.onsubmit = function (e){
             })
         }else{
             socket.emit('lounge-join-room', btnSubmit.name.value, btnSubmit.roomid.value, SOCKET_ID)
-           
         }
     })
 }
@@ -75,22 +83,49 @@ socket.on('feedback-join-room', data => {
     if(data)
         document.forms["formlonge"].submit();
 })
-//
+const modal_roompassword = document.getElementById("myModal-roompassword")
+const span_roompassword = document.getElementsByClassName("close-roompassword")
 
+socket.on('room-password', (username, roomId, socketid) => {
+    modal_roompassword.style.display = 'block'
+    span_roompassword.onclick = function() {
+        modal_roompassword.style.display = 'none'
+    }
+    RoomPassword(username, roomId, socketid)
+})
+socket.on('feeback-room-password', (username, roomId, socketid) => {
+    const form_room_password = document.getElementById('form-room-password')
+    form_room_password.insertAdjacentHTML('afterbegin', '<span style="font-size: 18px; color: red;">Sai mật khẩu</span>')
+    RoomPassword(username, roomId, socketid)
+})
+//
+function RoomPassword(username, roomId, socketid){
+    const form_room_password = document.getElementById('form-room-password')
+    form_room_password.onsubmit = function (e) {
+        e.preventDefault()
+        socket.emit('submit-room-password', username, roomId, socketid, document.getElementById('room-password').value)
+    }
+}
 
 // button submit
 // create room id
 const btnCreateId = document.getElementById('create-room')
 if(btnCreateId)
     btnCreateId.onclick = function () {
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/get_room_id',
-        })
-        .then(function (response) {
-            document.getElementById('froom').value = response.data
-        })
+        CreateRoom()
+        if(document.getElementById('mess-err-rp'))
+            document.getElementById('mess-err-rp').remove()
+        modal_createroom.style.display = "block"
     }
+function CreateRoom () {
+    axios({
+        method: 'get',
+        url: 'http://localhost:3000/get_room_id',
+    })
+    .then(function (response) {
+        document.getElementById('froom').value = response.data
+    })
+}
 // create room id
 
 // modal đăng nhập đăng ký ----------------------------------------------------------------------------------
@@ -185,16 +220,71 @@ span_search.onclick = function() {
     modal_search.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal_search) {
-    modal_search.style.display = "none";
-  }
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+// modal create room
+const modal_createroom = document.getElementById("myModal-createroom");
+
+// Get the button that opens the modal
+const btn_ok_type_room = document.getElementById('ok-type-room')
+// Get the <span> element that closes the modal
+const span_createroom = document.getElementById('close-createroom')
+
+const btnRadioPublic = document.getElementById('mode_room_public')
+const btnRadioPrivate = document.getElementById('mode_room_private')
+const btnRadioPassword = document.getElementById('mode_room_password')
+const div_input_room_password = document.getElementById('div_input_room_password')
+btnRadioPublic.onclick = function () {
+    div_input_room_password.style.display = 'none'
 }
-// modal search room
+btnRadioPrivate.onclick = function () {
+    div_input_room_password.style.display = 'none'
+}
+btnRadioPassword.onclick = function () {
+    div_input_room_password.style.display = 'block'
+}
+
+span_createroom.onclick = function () {
+    modal_createroom.style.display = "none"
+}
+window.onclick = function(event) {
+    if (event.target == modal_createroom) {
+        modal_createroom.style.display = "none"
+    }
+    if (event.target == modal_search) {
+        modal_search.style.display = "none";
+      }
+    if (event.target == modal) {
+        modal.style.display = "none"
+    }
+    if(event.target == modal_roompassword){
+        modal_roompassword.style.display = "none"
+    }
+}
+btn_ok_type_room.onclick = function() {
+    if(document.getElementById('mode_room'))
+        document.getElementById('mode_room').remove()
+    if(document.getElementById('password_room'))
+        document.getElementById('password_room').remove()
+    if(document.getElementById('mess-err-rp'))
+        document.getElementById('mess-err-rp').remove()
+    if(document.querySelector('input[name="mode_room"]:checked').value === "password"){
+        btnSubmit.insertAdjacentHTML( 'beforeend', '<input type="hidden" id="mode_room" name="type_room" value="value" />')
+        document.getElementById('mode_room').setAttribute("value", document.querySelector('input[name="mode_room"]:checked').value)
+        if(document.getElementById('password_is_room').value){
+            btnSubmit.insertAdjacentHTML( 'beforeend', '<input type="hidden" id="password_room" name="password_room" value="value" />')
+            document.getElementById('password_room').setAttribute("value", document.getElementById('password_is_room').value)
+            modal_createroom.style.display = "none"
+        }else{
+            div_input_room_password.insertAdjacentHTML('afterbegin', '<span id="mess-err-rp" style="font-size: 18px; color: red;display: block;">Chưa nhập mật khẩu</span>')
+        }
+    }else{
+        btnSubmit.insertAdjacentHTML( 'beforeend', '<input type="hidden" id="mode_room" name="type_room" value="value" />')
+        document.getElementById('mode_room').setAttribute("value", document.querySelector('input[name="mode_room"]:checked').value)
+        modal_createroom.style.display = "none"
+    }
+    
+}
+
+// modal create room
 // modal đăng nhập đăng ký ----------------------------------------------------------------------------------
 function searchRoom(){
     var input, filter, table, tr, td, i, txtValue;

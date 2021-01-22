@@ -14,8 +14,12 @@ const roomSchema = new mongoose.Schema({
         required: true
     },
     room_mode: {
-        type: Boolean,
+        type: String,
         required: true
+    },
+    room_password:{
+        type: String,
+        require: true
     },
     create_at:{
         type: Number,

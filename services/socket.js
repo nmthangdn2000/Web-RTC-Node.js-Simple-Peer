@@ -1,3 +1,4 @@
+const RoomCall = require('../models/RoomCall.models')
 const io = require('socket.io')()
 let peer = {}
 let people = {}
@@ -16,7 +17,6 @@ io.on('connection', (socket) => {
 
     socket.on('join-room', (roomID, user) => {
         people[socket.id] = user
-        console.log("aaaaaaaaaaa",people[socket.id]);
         socket.join(roomID)
         socket.to(roomID).emit('user-name', socket.id, user);
         Object.keys(io.sockets.adapter.rooms[roomID].sockets).forEach(element => {
@@ -25,13 +25,36 @@ io.on('connection', (socket) => {
         });
     })
     // lounge join room
-    socket.on('lounge-join-room', (username, roomId, socketid) => {
+    socket.on('lounge-join-room', async (username, roomId, socketid) => {
         if(io.sockets.adapter.rooms[roomId] != undefined){
-            const socketid_master = Object.keys(io.sockets.adapter.rooms[roomId].sockets)[0]
-            io.to(roomId).emit('room-master', username, socketid_master, socketid)
+            await RoomCall.findOne({room_id: roomId})
+            .then(data => {
+                const socketid_master = Object.keys(io.sockets.adapter.rooms[roomId].sockets)[0]
+                if(data.room_mode === "public")
+                    socket.emit('join-room-ok')
+                else if(data.room_mode === "private"){
+                    io.to(roomId).emit('room-master', username, socketid_master, socketid)
+                }
+                else if(data.room_mode === "password"){
+                    socket.emit('room-password', username, roomId, socketid)
+                }
+            })
+            .catch(err => console.log(err))
         }else{
             socket.emit('join-room-ok')
         }
+    })
+    socket.on('submit-room-password', async (username, roomId, socketid, password) => {
+        await RoomCall.findOne({room_id: roomId})
+        .then(data => {
+            console.log("hahahahh ---------------------   ", data);
+            if(data.room_password === password)
+                socket.emit('join-room-ok')
+            else{
+                socket.emit('feeback-room-password', username, roomId, socketid)
+            }
+        })
+        .catch(err => console.log(err))
     })
     //feedback-join-room
     socket.on('feedback-join-room', (feedback, socketid) => {

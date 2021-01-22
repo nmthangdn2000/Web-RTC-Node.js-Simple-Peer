@@ -102,6 +102,59 @@
 		</div>
 	</div>
 	<!-- modal search room -->
+	<!-- modal create room -->
+	<div id="myModal-createroom" class="modal">
+		<div class="modal-container" id="modal-container-createroom">
+			<span class="close" id="close-createroom">&times;</span>
+			<br><br><br><br>
+			<h2>Chọn loại phòng họp</h2>
+			<br><br><br>
+			<div class="div_radio">
+				<div></div>
+				<div>
+					<input type="radio" id="mode_room_public" name="mode_room" value="public" checked="checked">
+					<label for="mode_room_public">public</label><br>
+					<input type="radio" id="mode_room_private" name="mode_room" value="private">
+					<label for="mode_room_private">private</label><br>
+					<input type="radio" id="mode_room_password" name="mode_room" value="password">
+					<label for="mode_room_password">password</label><br>
+				</div>
+				<div></div>
+			</div>
+			<br><br><br>
+			<div class="div_radio" >
+				<div></div>
+				<div>
+					<div id="div_input_room_password">
+						<label for="password_is_room">Nhập mật khẩu phòng</label>
+						<input type="password" id="password_is_room" name="password_is_room" placeholder="Nhập mật khẩu phòng">
+					</div>
+				</div>
+				<div></div>
+			</div>
+			<div class="div_radio">
+				<div></div>
+				<input type="button" id="ok-type-room" name="btntyperoom" value="OK">
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!-- modal create room -->
+	<!-- modal password room -->
+	<div id="myModal-roompassword" class="modal">
+		<div class="modal-container" id="modal-container-roompassword">
+			<span class="close" id="close-roompassword">&times;</span>
+			<div>
+				<form id="form-room-password">
+					<span style="font-size: 18px; color: red;"></span>
+					<label for="room-password">Nhập mật khẩu phòng</label>
+					<input type="text" id="room-password" name="room_password" placeholder="Nhập mật khẩu phòng ...">
+					<input type="button" id="submit-room-password" name="btnRoomPassword" value="OK">
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- modal password room -->
     <div class="container">
 		<header id="header" class="">
 			<h1>Ứng dụng hội thảo từ xa</h3>	

@@ -63,7 +63,6 @@ navigator.mediaDevices.getUserMedia({ video:true, audio: true })
         SOCKETID_USER = id
         console.log("socketidUser", SOCKETID_USER);
         chatmess.sendMess(SOCKETID_USER, socket)
-        // peers[id] = new Peer({ initiator: true, trickle: false, stream: localStream})
     })
     socket.on('user-name', (socket_id, username) => {
         addUser(socket_id, username)
@@ -513,16 +512,9 @@ document.querySelectorAll(".tabEmotionPanel span").forEach(el=>{
 // Get the modal
 const modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-const btnModal = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
-btnModal.onclick = function() {
-  modal.style.display = "block";
-}
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
