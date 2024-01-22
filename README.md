@@ -3,4 +3,4 @@ Basic online video calling app like google meet
 
 Link demo:
 
-https://hoithaotuxa.herokuapp.com/lounge
+https://metting.onrender.com/lounge
